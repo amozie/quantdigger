@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+import pandas as pd
 from quantdigger.datasource.source import DatasourceAbstract
 from quantdigger.util import dlogger as logger
 from quantdigger.infras.object import HashObject
@@ -34,7 +36,12 @@ class CachedDatasource(DatasourceAbstract):
 
     def get_contracts(self):
         # TODO:
-        return self.datasource.get_contracts()
+        # return self.datasource.get_contracts()
+        fname = os.path.join(self.cache._base_path, "CONTRACTS.csv")
+        df = pd.read_csv(fname)
+        df.index = df['code'] + '.' + df['exchange']
+        df.index = map(lambda x: x.upper(), df.index)
+        return df
 
 
 class CacheAbstract(DatasourceAbstract):
