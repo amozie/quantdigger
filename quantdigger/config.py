@@ -15,6 +15,21 @@ class ConfigLog(object):
     log_to_file = True
     log_to_console = True
     log_path = './log'
-    
 
-__all__ = ['settings', 'ConfigLog']
+class ConfigColor:
+    bar_up_color = 'gray'
+    bar_down_color = 'k'
+    bar_width = 1
+    bar_line_color = 'k'
+    bar_alpha = 0.5
+    vol_up_color = 'gray'
+    vol_down_color = 'k'
+    vol_width = 1
+    vol_alpha = 0.5
+    trading_up_color = 'pink'
+    trading_down_color = 'skyblue'
+    trading_width = 2
+    trading_alpha = 0.7
+    plot_line_alpha = 1
+
+__all__ = ['settings', 'ConfigLog', 'ConfigColor']

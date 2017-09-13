@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
+##
+# @file common.py
+# @brief
+# @author wondereamer
+# @version 0.1
+# @date 2015-12-23
 
+from six.moves import range
 import talib
+import matplotlib.finance as finance
 
+from quantdigger.config import ConfigColor
 from quantdigger.technicals.base import (
     TechnicalBase,
     ndarray,
@@ -147,7 +156,7 @@ class BOLL(TechnicalBase):
         #emaslow = MA(x, nslow, type='exponential').value
         #emafast = MA(x, nfast, type='exponential').value
         #return emaslow, emafast, emafast - emaslow
-
+        
     #def plot(self, widget):
         #self.widget = widget
         #fillcolor = 'darkslategrey'
@@ -166,7 +175,7 @@ class Volume(Plotter):
     """ 柱状图。 """
     @plot_init
     def __init__(self, open, close, volume, name='volume',
-                 colorup='r', colordown='b', width=1):
+                 colorup=ConfigColor.vol_up_color, colordown=ConfigColor.vol_down_color, width=ConfigColor.vol_width):
         super(Volume, self).__init__(name, None)
         self.values = ndarray(volume)
 
@@ -174,7 +183,7 @@ class Volume(Plotter):
         import matplotlib.finance as finance
         self.widget = widget
         finance.volume_overlay(widget, self.open, self.close, self.volume,
-                               self.colorup, self.colordown, self.width)
+                               self.colorup, self.colordown, self.width, alpha=ConfigColor.vol_alpha)
 
 ## @TODO merge Line and LineWithX and move to plotting module
 class Line(Plotter):

@@ -11,6 +11,9 @@ import inspect
 from matplotlib.axes import Axes
 import numpy as np
 
+from quantdigger.config import ConfigColor
+
+
 def plot_init(method):
     """ 根据被修饰函数的参数构造属性。
         并且触发绘图范围计算。
@@ -70,10 +73,10 @@ class AxWidget(object):
         self.name = name
 
     def plot_line(self, widget, ydata, style, lw, ms):
-        widget.plot(ydata, style, lw=lw, ms=ms, label=self.name)
+        widget.plot(ydata, style, lw=lw, ms=ms, label=self.name, alpha=ConfigColor.plot_line_alpha)
 
     def plot_line_withx(self, widget, _xdata, ydata, style, lw, ms):
-        widget.plot(_xdata, ydata, style, lw=lw, ms=ms, label=self.name)
+        widget.plot(_xdata, ydata, style, lw=lw, ms=ms, label=self.name, alpha=ConfigColor.plot_line_alpha)
 
 
 class QtWidget(object):
