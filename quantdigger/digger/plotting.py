@@ -2,6 +2,9 @@
 import six
 from six.moves import range
 import matplotlib
+
+from quantdigger.config import ConfigColor
+
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.ticker import Formatter
@@ -41,7 +44,7 @@ def plot_strategy(price_data, indicators={}, deals=[], curve=[], marks=[]):
     #subwidget1.plot(price_data)
     # 交易信号。
     if deals:
-        signal = mplots.TradingSignalPos(price_data, deals, lw=2)
+        signal = mplots.TradingSignalPos(price_data, deals, lw=ConfigColor.trading_width)
         subwidget1.add_plotter(signal, False)
     if len(curve) > 0:
         curve = Line(curve)

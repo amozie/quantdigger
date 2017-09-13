@@ -7,6 +7,8 @@ import inspect
 from matplotlib.colors import colorConverter
 from matplotlib.collections import LineCollection, PolyCollection
 
+from quantdigger.config import ConfigColor
+
 
 def override_attributes(method):
     # 如果plot函数不带绘图参数，则使用属性值做为参数。
@@ -37,8 +39,8 @@ class Candles(object):
     画蜡烛线。
     """
     def __init__(self, data, tracker, name='candle',
-                 width=0.6, colorup='r', colordown='g',
-                 lc='k', alpha=1):
+                 width=ConfigColor.bar_width, colorup=ConfigColor.bar_up_color, colordown=ConfigColor.bar_down_color,
+                 lc=ConfigColor.bar_line_color, alpha=ConfigColor.bar_alpha):
         """ Represent the open, close as a bar line and high low range as a
         vertical line.
 
@@ -158,7 +160,7 @@ class TradingSignal(object):
 
 class TradingSignalPos(object):
     """ 从价格和持仓数据中绘制交易信号图。 """
-    def __init__(self, price_data, deals, name="Signal", c=None, lw=2):
+    def __init__(self, price_data, deals, name="Signal", c=None, lw=ConfigColor.trading_width):
         self.signal = []
         self.colors = []
         price_data['row'] = [i for i in range(0, len(price_data))]
@@ -168,13 +170,13 @@ class TradingSignalPos(object):
                  (price_data.row[deal.close_datetime], deal.close_price))
             self.signal.append(p)
             self.colors.append(
-                (1, 0, 0, 1) if deal.profit() > 0 else (0, 1, 0, 1))
+                ConfigColor.trading_up_color if deal.profit() > 0 else ConfigColor.trading_down_color)
         self.name = name
 
-    def plot(self, widget, lw=2):
+    def plot(self, widget, lw=ConfigColor.trading_width):
         useAA = 0,  # use tuple here
         signal = LineCollection(self.signal, colors=self.colors, linewidths=lw,
-                                antialiaseds=useAA)
+                                antialiaseds=useAA, alpha=ConfigColor.trading_alpha)
         widget.add_collection(signal)
 
     def y_interval(self, w_left, w_right):
