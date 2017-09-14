@@ -174,7 +174,7 @@ class Plotter(object):
             self._upper = self._lower = []
             if isinstance(self.values, dict):
                 # 多值指标
-                values = zip(*six.itervalues(self.values))
+                values = list(zip(*six.itervalues(self.values)))
                 self._upper = [max(value) for value in values]
                 self._lower = [min(value) for value in values]
             else:

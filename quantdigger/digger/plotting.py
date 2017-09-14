@@ -24,21 +24,27 @@ def xticks_to_display(data_length):
     return xticks
 
 
-def plot_strategy(price_data, indicators={}, deals=[], curve=[], marks=[]):
+def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
     """
         显示回测结果。
     """
+    max_key = max(more_indicators.keys())
+    window = max(max_key, 2)
+
     six.print_("plotting..")
     fig = plt.figure()
     frame = widgets.TechnicalWidget(fig, price_data)
     axes = frame.init_layout(
-        50,         # 窗口显示k线数量。
-         4, 1     # 两个1:1大小的窗口
+        100,         # 窗口显示k线数量。
+         4, 1, *([1]*(window-2))     # 两个1:1大小的窗口
     )
+    subwidgets = []
+    for i in range(window):
+        subwidgets.append(widgets.FrameWidget(axes[i], "subwidget{0}".format(i+1), 100, 50))
 
     # 绘制第一个窗口
     # 添加k线
-    subwidget1 = widgets.FrameWidget(axes[0], "subwidget1", 100, 50)
+    subwidget1 = subwidgets[0]
     candles = Candles(price_data, None, 'candles')
     subwidget1.add_plotter(candles, False)
     #subwidget1.plot(price_data)
@@ -49,16 +55,22 @@ def plot_strategy(price_data, indicators={}, deals=[], curve=[], marks=[]):
     if len(curve) > 0:
         curve = Line(curve)
         subwidget1.add_plotter(curve, True)
-    # 添加指标
-    for name, indic in six.iteritems(indicators):
-        subwidget1.add_plotter(indic, False)
 
     # 绘制第2个窗口
-    subwidget2 = widgets.FrameWidget(axes[1], "subwidget2", 100, 50)
+    subwidget2 = subwidgets[1]
     volume_plotter = Volume(price_data.open, price_data.close, price_data.volume)
     subwidget2.add_plotter(volume_plotter, False)
 
-    subwidgets = [subwidget1, subwidget2]
+    # 添加指标
+    for key, values in more_indicators.items():
+        if not isinstance(values, list):
+            values = [values]
+        for indicators in values:
+            for name, indic in six.iteritems(indicators):
+                subwidgets[key-1].add_plotter(indic, False)
+
+
+    # subwidgets = [subwidget1, subwidget2]
 
     ### 绘制标志
     if marks:
