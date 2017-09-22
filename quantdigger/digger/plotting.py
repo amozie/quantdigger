@@ -11,6 +11,7 @@ from matplotlib.ticker import Formatter
 from quantdigger.widgets.mplotwidgets import widgets, mplots
 from quantdigger.widgets.mplotwidgets.mplots import Candles
 from quantdigger.technicals.common import Line, LineWithX, Volume
+import numpy as np
 
 
 def xticks_to_display(data_length):
@@ -53,8 +54,14 @@ def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
         signal = mplots.TradingSignalPos(price_data, deals, lw=ConfigColor.trading_width)
         subwidget1.add_plotter(signal, False)
     if len(curve) > 0:
-        curve = Line(curve)
+        # 添加初始资金基线
+        base = np.zeros_like(curve) + curve[0]
+        # base = Line(base, 'Baseline', 'k--')
+        # curve = Line(curve)
+        curve = Line(np.stack([curve, base], axis=1), 'profile', 'k--', 0.5)
         subwidget1.add_plotter(curve, True)
+        # subwidget1.add_plotter(base, True)
+
 
     # 绘制第2个窗口
     subwidget2 = subwidgets[1]
