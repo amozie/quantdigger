@@ -8,7 +8,6 @@
 
 from six.moves import range
 import talib
-import matplotlib.finance as finance
 
 from quantdigger.config import ConfigColor
 from quantdigger.technicals.base import \
@@ -153,7 +152,7 @@ class BOLL(TechnicalBase):
         #emaslow = MA(x, nslow, type='exponential').value
         #emafast = MA(x, nfast, type='exponential').value
         #return emaslow, emafast, emafast - emaslow
-        
+
     #def plot(self, widget):
         #self.widget = widget
         #fillcolor = 'darkslategrey'
@@ -177,6 +176,7 @@ class Volume(Plotter):
         self.values = ndarray(volume)
 
     def plot(self, widget):
+        import matplotlib.finance as finance
         self.widget = widget
         finance.volume_overlay(widget, self.open, self.close, self.volume,
                                self.colorup, self.colordown, self.width, alpha=ConfigColor.vol_alpha)
