@@ -116,7 +116,7 @@ def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
     frame.add_widget(0, subwidget1, True)
     frame.add_widget(1, subwidget2, True)
     frame.draw_widgets()
-    plt.show()
+    # plt.show()
 
 
 def plot_curves(data, colors=[], lws =[], names=[]):
