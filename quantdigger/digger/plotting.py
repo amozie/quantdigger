@@ -163,7 +163,7 @@ def plot_curves(data, colors=[], lws =[], names=[]):
     # ax.legend(lns, ['aaa', 'bbbb', 'ccc'])
     if names:
         ax.legend(lns, names, loc='upper left').get_frame().set_alpha(0.5)
-    plt.show()
+    # plt.show()
 
 
 class TimeFormatter(Formatter):
