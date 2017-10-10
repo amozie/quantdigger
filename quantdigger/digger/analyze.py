@@ -151,7 +151,7 @@ def summary(data):
             "Number of Winning Trades: ",
             "Number of Losing Trades: ",
             "Average Profit:",
-            "AV Profits / AV Loss: ", 
+            "Average Loss: ",
             "Winning Percentage: ",
             "Stock Holding Period: " 
            ]
@@ -163,8 +163,9 @@ def summary(data):
                 [str(total_num)],
                 [str(len(data_win))],
                 [str(len(data_lose))], 
-                [str(data_win.exit_profit.sum()/ total_num*300)],
-                [str(abs(data_win.exit_profit.sum()/len(data_win) / (data_lose.exit_profit.sum()/len(data_lose))))],
+                [str(data_win.exit_profit.sum() / total_num*300)],
+                [str(data_lose.exit_profit.sum() / total_num*300)],
+                # [str(abs(data_win.exit_profit.sum()/len(data_win) / (data_lose.exit_profit.sum()/len(data_lose))))],
                 [str(len(data_win)/float(total_num)*100) + "%" ], 
                 [str(av_period)]
               ]
@@ -187,7 +188,8 @@ def summary(data):
     six.print_("盈利次数: " + str(len(data_win)))
     six.print_("亏损次数: " + str(len(data_lose)))
     six.print_("平均利润: " + str(data_win.exit_profit.sum()/ total_num*300))
-    six.print_("盈亏比: " + str(abs(data_win.exit_profit.sum()/len(data_win) / (data_lose.exit_profit.sum()/len(data_lose)))))
+    six.print_("平均亏损: " + str(data_lose.exit_profit.sum()/ total_num*300))
+    # six.print_("盈亏比: " + str(abs(data_win.exit_profit.sum()/len(data_win) / (data_lose.exit_profit.sum()/len(data_lose)))))
     six.print_("胜率: " + str(len(data_win)/float(total_num)*100) + "%" )
     six.print_("平均持仓周期: " + str(av_period))
     six.print_("******************************************")
