@@ -36,7 +36,7 @@ def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
     fig = plt.figure()
     frame = widgets.TechnicalWidget(fig, price_data)
     axes = frame.init_layout(
-        100,         # 窗口显示k线数量。
+        200,         # 窗口显示k线数量。
          4, 1, *([1]*(window-2))     # 两个1:1大小的窗口
     )
     subwidgets = []
