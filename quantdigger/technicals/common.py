@@ -156,7 +156,7 @@ class BOLL(TechnicalBase):
         #emaslow = MA(x, nslow, type='exponential').value
         #emafast = MA(x, nfast, type='exponential').value
         #return emaslow, emafast, emafast - emaslow
-        
+
     #def plot(self, widget):
         #self.widget = widget
         #fillcolor = 'darkslategrey'
