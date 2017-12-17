@@ -116,7 +116,7 @@ def plot_strategy(price_data, more_technicals={}, deals=[], curve=[], marks=[]):
     frame.add_widget(0, subwidget1, True)
     frame.add_widget(1, subwidget2, True)
     frame.draw_widgets()
-    plt.show()
+    # plt.show()
 
 
 def plot_curves(data, colors=[], lws =[], names=[]):
@@ -163,7 +163,7 @@ def plot_curves(data, colors=[], lws =[], names=[]):
     # ax.legend(lns, ['aaa', 'bbbb', 'ccc'])
     if names:
         ax.legend(lns, names, loc='upper left').get_frame().set_alpha(0.5)
-    plt.show()
+    # plt.show()
 
 
 class TimeFormatter(Formatter):
