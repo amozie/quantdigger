@@ -36,7 +36,7 @@ def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
     fig = plt.figure()
     frame = widgets.TechnicalWidget(fig, price_data)
     axes = frame.init_layout(
-        200,         # 窗口显示k线数量。
+        100,         # 窗口显示k线数量。
          4, 1, *([1]*(window-2))     # 两个1:1大小的窗口
     )
     subwidgets = []
@@ -116,7 +116,7 @@ def plot_strategy(price_data, more_indicators={}, deals=[], curve=[], marks=[]):
     frame.add_widget(0, subwidget1, True)
     frame.add_widget(1, subwidget2, True)
     frame.draw_widgets()
-    # plt.show()
+    plt.show()
 
 
 def plot_curves(data, colors=[], lws =[], names=[]):
@@ -163,7 +163,7 @@ def plot_curves(data, colors=[], lws =[], names=[]):
     # ax.legend(lns, ['aaa', 'bbbb', 'ccc'])
     if names:
         ax.legend(lns, names, loc='upper left').get_frame().set_alpha(0.5)
-    # plt.show()
+    plt.show()
 
 
 class TimeFormatter(Formatter):

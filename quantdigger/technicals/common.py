@@ -9,7 +9,6 @@
 from six.moves import range
 import talib
 
-from quantdigger.config import ConfigColor
 from quantdigger.technicals.base import \
     TechnicalBase, ndarray, tech_init
 from quantdigger.technicals.techutil import register_tech
@@ -171,7 +170,7 @@ class Volume(Plotter):
     """ 柱状图。 """
     @plot_init
     def __init__(self, open, close, volume, name='volume',
-                 colorup=ConfigColor.vol_up_color, colordown=ConfigColor.vol_down_color, width=ConfigColor.vol_width):
+                 colorup='r', colordown='b', width=1):
         super(Volume, self).__init__(name, None)
         self.values = ndarray(volume)
 
@@ -179,7 +178,7 @@ class Volume(Plotter):
         import matplotlib.finance as finance
         self.widget = widget
         finance.volume_overlay(widget, self.open, self.close, self.volume,
-                               self.colorup, self.colordown, self.width, alpha=ConfigColor.vol_alpha)
+                               self.colorup, self.colordown, self.width)
 
 ## @TODO merge Line and LineWithX and move to plotting module
 class Line(Plotter):
